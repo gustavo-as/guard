@@ -119,6 +119,16 @@ src/main/java/com/operis/guard/
 | PUT    | `/api/v1/companies/{id}`                    | Update company data                |
 | PATCH  | `/api/v1/companies/{id}/status`             | Update company active status       |
 
+### Permissions — `/api/v1/permissions`
+
+| Method | Endpoint                    | Description              |
+|--------|-----------------------------|--------------------------|
+| POST   | `/api/v1/permissions`       | Create a new permission  |
+| GET    | `/api/v1/permissions`       | List all permissions     |
+| GET    | `/api/v1/permissions/{id}`  | Find permission by ID    |
+| PUT    | `/api/v1/permissions/{id}`  | Update permission        |
+| DELETE | `/api/v1/permissions/{id}`  | Delete permission        |
+
 
 ## Security Context
 
