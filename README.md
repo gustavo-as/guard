@@ -91,3 +91,46 @@ src/main/java/com/operis/guard/
 ├── repository/    # Data access layer (Spring Data JPA)
 └── entity/        # JPA entities mapped to database tables
 ```
+
+
+## API Endpoints
+
+### Users — `/api/v1/users`
+
+| Method  | Endpoint                  | Description                        |
+|---------|---------------------------|------------------------------------|
+| POST    | `/api/v1/users`           | Create a new user                  |
+| GET     | `/api/v1/users`           | List all users (TODO: filter by company) |
+| GET     | `/api/v1/users/{id}`      | Find user by ID                    |
+| PATCH   | `/api/v1/users/{id}/status` | Update user active status |
+
+
+> Internal operations (findByEmail, delete) are available at the service layer only.
+
+## Security Context
+
+This service handles authentication and authorization in a **multi-tenant** architecture:
+
+- A user can be linked to multiple companies
+- Each link carries a specific role within that company
+- JWT tokens will carry the active company and role context
+
+
+## Multi-Tenant Model
+
+This service supports a multi-tenant architecture where a user can be linked
+to multiple companies, each with a different role.
+
+### Entity Relationship
+```
+users ──── user_company ──── company
+                │
+               role ──── role_permission ──── permission
+```
+
+### Roles
+
+| Type   | Description                                      |
+|--------|--------------------------------------------------|
+| BASE   | Global roles available to all companies          |
+| CUSTOM | Roles created and managed by a specific company  |
