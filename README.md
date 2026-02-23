@@ -129,6 +129,20 @@ src/main/java/com/operis/guard/
 | PUT    | `/api/v1/permissions/{id}`  | Update permission        |
 | DELETE | `/api/v1/permissions/{id}`  | Delete permission        |
 
+### Roles — `/api/v1/roles`
+
+| Method | Endpoint                          | Description                    |
+|--------|-----------------------------------|--------------------------------|
+| POST   | `/api/v1/roles`                   | Create a new role              |
+| GET    | `/api/v1/roles`                   | List all roles                 |
+| GET    | `/api/v1/roles/{id}`              | Find role by ID                |
+| GET    | `/api/v1/roles/type/{type}`       | List roles by type (BASE/CUSTOM)|
+| GET    | `/api/v1/roles/company/{id}`      | List roles by company          |
+| PUT    | `/api/v1/roles/{id}`              | Update role                    |
+| POST   | `/api/v1/roles/{id}/permissions`  | Add permission to role         |
+| DELETE | `/api/v1/roles/{id}/permissions`  | Remove permission from role    |
+| DELETE | `/api/v1/roles/{id}`              | Delete role                    |
+
 
 ## Security Context
 
