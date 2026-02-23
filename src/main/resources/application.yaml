@@ -2,11 +2,29 @@ spring:
   application:
     name: guard
 
-  server:
-    port: 8080
+  datasource:
+    url: jdbc:postgresql://localhost:5432/guarddb
+    username: guard_user
+    password: guard_pass
+    driver-class-name: org.postgresql.Driver
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health, info
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always

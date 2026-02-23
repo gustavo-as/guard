@@ -79,3 +79,15 @@ Health check:
 ```bash
 curl http://localhost:8080/actuator/health
 ```
+
+
+
+## Project Structure
+```
+src/main/java/com/operis/guard/
+├── GuardApplication.java
+├── controller/    # REST controllers, request/response handling
+├── service/       # Business logic
+├── repository/    # Data access layer (Spring Data JPA)
+└── entity/        # JPA entities mapped to database tables
+```

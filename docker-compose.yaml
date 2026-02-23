@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: guard-postgres
+    environment:
+      POSTGRES_DB: guarddb
+      POSTGRES_USER: guard_user
+      POSTGRES_PASSWORD: guard_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - guard_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  guard_postgres_data:
