@@ -114,3 +114,23 @@ This service handles authentication and authorization in a **multi-tenant** arch
 - A user can be linked to multiple companies
 - Each link carries a specific role within that company
 - JWT tokens will carry the active company and role context
+
+
+## Multi-Tenant Model
+
+This service supports a multi-tenant architecture where a user can be linked
+to multiple companies, each with a different role.
+
+### Entity Relationship
+```
+users ──── user_company ──── company
+                │
+               role ──── role_permission ──── permission
+```
+
+### Roles
+
+| Type   | Description                                      |
+|--------|--------------------------------------------------|
+| BASE   | Global roles available to all companies          |
+| CUSTOM | Roles created and managed by a specific company  |
