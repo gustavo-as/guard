@@ -107,6 +107,19 @@ src/main/java/com/operis/guard/
 
 > Internal operations (findByEmail, delete) are available at the service layer only.
 
+### Companies — `/api/v1/companies`
+
+| Method | Endpoint                                    | Description                        |
+|--------|---------------------------------------------|------------------------------------|
+| POST   | `/api/v1/companies`                         | Create a new company               |
+| GET    | `/api/v1/companies`                         | List all companies                 |
+| GET    | `/api/v1/companies/{id}`                    | Find company by ID                 |
+| GET    | `/api/v1/companies/registration/{number}`   | Find company by registration number|
+| GET    | `/api/v1/companies/search?name={name}`      | Search companies by name           |
+| PUT    | `/api/v1/companies/{id}`                    | Update company data                |
+| PATCH  | `/api/v1/companies/{id}/status`             | Update company active status       |
+
+
 ## Security Context
 
 This service handles authentication and authorization in a **multi-tenant** architecture:
