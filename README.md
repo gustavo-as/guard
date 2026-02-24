@@ -92,6 +92,38 @@ src/main/java/com/operis/guard/
 └── entity/        # JPA entities mapped to database tables
 ```
 
+## Authentication
+
+This service uses **JWT (RS256)** for stateless authentication with multi-tenant context.
+
+### Auth Endpoints — `/api/v1/auth`
+
+| Method | Endpoint               | Description                        | Auth Required |
+|--------|------------------------|------------------------------------|---------------|
+| POST   | `/api/v1/auth/login`   | Authenticate and receive tokens    | No            |
+| POST   | `/api/v1/auth/refresh` | Refresh access token               | No            |
+| POST   | `/api/v1/auth/logout`  | Revoke refresh token               | No            |
+
+### Token Structure
+
+The JWT access token carries the full multi-tenant context:
+```json
+{
+  "sub": "user-id",
+  "email": "user@email.com",
+  "companyId": 1,
+  "role": "ADMIN",
+  "permissions": ["CREATE_USER"]
+}
+```
+
+### Token Lifecycle
+
+| Token         | Expiration | Description                                      |
+|---------------|------------|--------------------------------------------------|
+| Access Token  | 15 minutes | Short-lived, carries auth context                |
+| Refresh Token | 7 days     | Long-lived, stored in DB, rotated on each use    |
+
 
 ## API Endpoints
 
