@@ -60,7 +60,7 @@ public class PermissionService {
 
     private PermissionResponse toResponse(Permission permission) {
         return PermissionResponse.builder()
-                .id(permission.getId())
+                .publicId(permission.getPublicId())
                 .name(permission.getName())
                 .description(permission.getDescription())
                 .build();
