@@ -203,3 +203,14 @@ users ──── user_company ──── company
 |--------|--------------------------------------------------|
 | BASE   | Global roles available to all companies          |
 | CUSTOM | Roles created and managed by a specific company  |
+
+## Security Practices
+
+### Public Identifiers
+All entities expose a `publicId` (UUID) instead of the internal numeric `id`.
+This prevents enumeration attacks and hides the internal structure of the database.
+
+| Field      | Type   | Description                                      |
+|------------|--------|--------------------------------------------------|
+| `id`       | Long   | Internal database identifier — never exposed     |
+| `publicId` | String | Public UUID — used in all API responses and JWT  |

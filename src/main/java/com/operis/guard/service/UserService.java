@@ -67,7 +67,7 @@ public class UserService {
 
     private UserResponse toResponse(User user) {
         return UserResponse.builder()
-                .id(user.getId())
+                .publicId(user.getPublicId())
                 .email(user.getEmail())
                 .active(user.getActive())
                 .createdAt(user.getCreatedAt())

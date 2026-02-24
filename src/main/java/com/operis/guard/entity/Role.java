@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "role")
@@ -18,6 +19,10 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // Identificador público exposto na API — nunca expor o id interno
+    @Column(nullable = false, unique = true, updatable = false)
+    private String publicId;
 
     // Nome do papel (ex: ADMIN, MANAGER, USER)
     @Column(nullable = false)
@@ -41,4 +46,10 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions;
+
+    @PrePersist
+    protected void onCreate() {
+        publicId = UUID.randomUUID().toString();
+    }
+
 }

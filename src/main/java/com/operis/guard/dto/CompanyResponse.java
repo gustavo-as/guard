@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class CompanyResponse {
 
-    private Long id;
+    private String publicId;
     private String name;
     private String registrationNumber;
     private String vatNumber;

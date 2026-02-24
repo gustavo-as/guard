@@ -91,7 +91,7 @@ public class CompanyService {
 
     private CompanyResponse toResponse(Company company) {
         return CompanyResponse.builder()
-                .id(company.getId())
+                .publicId(company.getPublicId())
                 .name(company.getName())
                 .registrationNumber(company.getRegistrationNumber())
                 .vatNumber(company.getVatNumber())

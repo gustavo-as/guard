@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 public class PermissionResponse {
 
-    private Long id;
+    private String publicId;
     private String name;
     private String description;
 }

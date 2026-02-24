@@ -18,14 +18,14 @@ public class JwtService {
 
     private final RsaKeyConfig rsaKeyConfig;
 
-    public String generateAccessToken(Long userId, String email, Long companyId, String role, List<String> permissions) {
+    public String generateAccessToken(Long userId, String email, String companyPublicId, String role, List<String> permissions) {
         try {
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
                     .subject(String.valueOf(userId))
                     .issueTime(Date.from(Instant.now()))
                     .expirationTime(Date.from(Instant.now().plusSeconds(rsaKeyConfig.accessTokenExpiration())))
                     .claim("email", email)
-                    .claim("companyId", companyId)
+                    .claim("companyPublicId", companyPublicId)
                     .claim("role", role)
                     .claim("permissions", permissions)
                     .build();
