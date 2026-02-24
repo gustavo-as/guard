@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "company")
@@ -17,6 +18,10 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // Identificador público exposto na API — nunca expor o id interno
+    @Column(nullable = false, unique = true, updatable = false)
+    private String publicId;
 
     // Nome oficial da empresa conforme registo comercial
     @Column(nullable = false)
@@ -69,6 +74,7 @@ public class Company {
 
     @PrePersist
     protected void onCreate() {
+        publicId = UUID.randomUUID().toString();
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }

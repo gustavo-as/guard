@@ -62,7 +62,7 @@ public class AuthService {
         String accessToken = jwtService.generateAccessToken(
                 user.getId(),
                 user.getEmail(),
-                userCompany.getCompany().getId(),
+                userCompany.getCompany().getPublicId(),
                 userCompany.getRole().getName(),
                 permissions
         );
@@ -82,7 +82,7 @@ public class AuthService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken.getToken())
                 .email(user.getEmail())
-                .companyId(userCompany.getCompany().getId())
+                .companyPublicId(userCompany.getCompany().getPublicId())
                 .companyName(userCompany.getCompany().getName())
                 .role(userCompany.getRole().getName())
                 .permissions(permissions)
@@ -115,7 +115,7 @@ public class AuthService {
         String accessToken = jwtService.generateAccessToken(
                 user.getId(),
                 user.getEmail(),
-                userCompany.getCompany().getId(),
+                userCompany.getCompany().getPublicId(),
                 userCompany.getRole().getName(),
                 permissions
         );
@@ -138,7 +138,7 @@ public class AuthService {
                 .accessToken(accessToken)
                 .refreshToken(newRefreshToken.getToken())
                 .email(user.getEmail())
-                .companyId(userCompany.getCompany().getId())
+                .companyPublicId(userCompany.getCompany().getPublicId())
                 .companyName(userCompany.getCompany().getName())
                 .role(userCompany.getRole().getName())
                 .permissions(permissions)

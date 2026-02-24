@@ -12,12 +12,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class RoleResponse {
 
-    private Long id;
+    private String publicId;
     private String name;
     private RoleType type;
 
     // Presente apenas quando type = CUSTOM
-    private Long companyId;
+    private String companyPublicId;
     private String companyName;
 
     private Set<PermissionResponse> permissions;

@@ -116,17 +116,17 @@ public class RoleService {
     private RoleResponse toResponse(Role role) {
         Set<PermissionResponse> permissions = role.getPermissions().stream()
                 .map(p -> PermissionResponse.builder()
-                        .id(p.getId())
+                        .publicId(role.getPublicId())
                         .name(p.getName())
                         .description(p.getDescription())
                         .build())
                 .collect(Collectors.toSet());
 
         return RoleResponse.builder()
-                .id(role.getId())
+                .publicId(role.getPublicId())
                 .name(role.getName())
                 .type(role.getType())
-                .companyId(role.getCompany() != null ? role.getCompany().getId() : null)
+                .companyPublicId(role.getCompany() != null ? role.getCompany().getPublicId() : null)
                 .companyName(role.getCompany() != null ? role.getCompany().getName() : null)
                 .permissions(permissions)
                 .build();

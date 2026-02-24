@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class UserResponse {
 
-    private Long id;
+    private String publicId;
     private String email;
     private Boolean active;
     private LocalDateTime createdAt;
