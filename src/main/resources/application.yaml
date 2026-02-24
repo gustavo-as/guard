@@ -17,6 +17,12 @@ spring:
       hibernate:
         format_sql: true
 
+jwt:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
+  access-token-expiration: 900      # 15 minutos em segundos
+  refresh-token-expiration: 604800  # 7 dias em segundos
+
 server:
   port: 8080
   error:
