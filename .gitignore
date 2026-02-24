@@ -3,6 +3,9 @@ target/
 build/
 *.class
 
+# RSA Keys - never commit private/public keys
+src/main/resources/certs/
+
 # IntelliJ IDEA
 .idea/
 *.iml
