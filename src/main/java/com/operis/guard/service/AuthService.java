@@ -1,9 +1,6 @@
 package com.operis.guard.service;
 
-import com.operis.guard.dto.AuthRequest;
-import com.operis.guard.dto.AuthResponse;
-import com.operis.guard.dto.RefreshTokenRequest;
-import com.operis.guard.dto.SwitchCompanyRequest;
+import com.operis.guard.dto.*;
 import com.operis.guard.entity.RefreshToken;
 import com.operis.guard.entity.User;
 import com.operis.guard.entity.UserCompany;
@@ -145,6 +142,21 @@ public class AuthService {
                 .role(userCompany.getRole().getName())
                 .permissions(permissions)
                 .build();
+    }
+
+    public List<UserCompanyResponse> getUserCompanies(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return userCompanyRepository
+                .findByUserIdAndActiveTrueOrderByCompanyNameAsc(user.getId())
+                .stream()
+                .map(uc -> UserCompanyResponse.builder()
+                        .companyPublicId(uc.getCompany().getPublicId())
+                        .companyName(uc.getCompany().getName())
+                        .role(uc.getRole().getName())
+                        .build())
+                .toList();
     }
 
     public AuthResponse refresh(RefreshTokenRequest request) {
