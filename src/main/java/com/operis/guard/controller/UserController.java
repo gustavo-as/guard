@@ -1,8 +1,6 @@
 package com.operis.guard.controller;
 
-import com.operis.guard.dto.CreateUserRequest;
-import com.operis.guard.dto.UpdateUserStatusRequest;
-import com.operis.guard.dto.UserResponse;
+import com.operis.guard.dto.*;
 import com.operis.guard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,19 +21,43 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
+    @GetMapping("/{publicId}")
+    public ResponseEntity<UserResponse> findById(@PathVariable String publicId) {
+        return ResponseEntity.ok(userService.findByPublicId(publicId));
     }
     @GetMapping
     public ResponseEntity<List<UserResponse>> findAll() {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<UserResponse> updateStatus(@PathVariable Long id,
+    @PutMapping("/{publicId}")
+    public ResponseEntity<UserResponse> update(@PathVariable String publicId,
+                                               @RequestBody CreateUserRequest request) {
+        return ResponseEntity.ok(userService.update(publicId, request));
+    }
+
+    @PatchMapping("/{publicId}/status")
+    public ResponseEntity<UserResponse> updateStatus(@PathVariable String publicId,
                                                      @RequestBody UpdateUserStatusRequest request) {
-        return ResponseEntity.ok(userService.updateStatus(id, request));
+        return ResponseEntity.ok(userService.updateStatus(publicId, request));
+    }
+
+    @GetMapping("/{publicId}/companies")
+    public ResponseEntity<List<UserCompanyResponse>> getUserCompanies(@PathVariable String publicId) {
+        return ResponseEntity.ok(userService.getUserCompanies(publicId));
+    }
+
+    @PostMapping("/{publicId}/companies")
+    public ResponseEntity<UserCompanyResponse> assignCompany(@PathVariable String publicId,
+                                                             @RequestBody UserCompanyAssignRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.assignCompany(publicId, request));
+    }
+
+    @DeleteMapping("/{publicId}/companies/{companyPublicId}")
+    public ResponseEntity<Void> removeCompany(@PathVariable String publicId,
+                                              @PathVariable String companyPublicId) {
+        userService.removeCompany(publicId, companyPublicId);
+        return ResponseEntity.noContent().build();
     }
 
 }
