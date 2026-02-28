@@ -92,17 +92,14 @@ src/main/java/com/operis/guard/
 └── entity/        # JPA entities mapped to database tables
 ```
 
-## Authentication
+### Authentication Flow
 
-This service uses **JWT (RS256)** for stateless authentication with multi-tenant context.
+1. `POST /api/v1/auth/login` — authenticates with email + password, returns token with first company (alphabetical order) as default context
+2. `POST /api/v1/auth/switch-company` — switches active company context, rotates refresh token
+3. `POST /api/v1/auth/refresh` — refreshes access token
+4. `POST /api/v1/auth/logout` — revokes refresh token
 
-### Auth Endpoints — `/api/v1/auth`
 
-| Method | Endpoint               | Description                        | Auth Required |
-|--------|------------------------|------------------------------------|---------------|
-| POST   | `/api/v1/auth/login`   | Authenticate and receive tokens    | No            |
-| POST   | `/api/v1/auth/refresh` | Refresh access token               | No            |
-| POST   | `/api/v1/auth/logout`  | Revoke refresh token               | No            |
 
 ### Token Structure
 

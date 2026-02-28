@@ -3,6 +3,7 @@ package com.operis.guard.controller;
 import com.operis.guard.dto.AuthRequest;
 import com.operis.guard.dto.AuthResponse;
 import com.operis.guard.dto.RefreshTokenRequest;
+import com.operis.guard.dto.SwitchCompanyRequest;
 import com.operis.guard.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/switch-company")
+    public ResponseEntity<AuthResponse> switchCompany(@RequestBody SwitchCompanyRequest request) {
+        return ResponseEntity.ok(authService.switchCompany(request));
     }
 
     @PostMapping("/refresh")
