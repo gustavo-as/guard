@@ -22,9 +22,9 @@ public class RoleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(roleService.create(request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RoleResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(roleService.findById(id));
+    @GetMapping("/{publicId}")
+    public ResponseEntity<RoleResponse> findByPublicId(@PathVariable String publicId) {
+        return ResponseEntity.ok(roleService.findByPublicId(publicId));
     }
 
     @GetMapping
@@ -43,21 +43,21 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleResponse> update(@PathVariable Long id,
+    public ResponseEntity<RoleResponse> update(@PathVariable String publicId,
                                                @RequestBody UpdateRoleRequest request) {
-        return ResponseEntity.ok(roleService.update(id, request));
+        return ResponseEntity.ok(roleService.update(publicId, request));
     }
 
     @PostMapping("/{id}/permissions")
-    public ResponseEntity<RoleResponse> addPermission(@PathVariable Long id,
+    public ResponseEntity<RoleResponse> addPermission(@PathVariable String publicId,
                                                       @RequestBody RolePermissionRequest request) {
-        return ResponseEntity.ok(roleService.addPermission(id, request));
+        return ResponseEntity.ok(roleService.addPermission(publicId, request));
     }
 
     @DeleteMapping("/{id}/permissions")
-    public ResponseEntity<RoleResponse> removePermission(@PathVariable Long id,
+    public ResponseEntity<RoleResponse> removePermission(@PathVariable String publicId,
                                                          @RequestBody RolePermissionRequest request) {
-        return ResponseEntity.ok(roleService.removePermission(id, request));
+        return ResponseEntity.ok(roleService.removePermission(publicId, request));
     }
 
     @DeleteMapping("/{id}")

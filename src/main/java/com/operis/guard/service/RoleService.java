@@ -47,8 +47,8 @@ public class RoleService {
         return toResponse(roleRepository.save(role));
     }
 
-    public RoleResponse findById(Long id) {
-        return roleRepository.findById(id)
+    public RoleResponse findByPublicId(String publicId) {
+        return roleRepository.findByPublicId(publicId)
                 .map(this::toResponse)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
     }
@@ -77,15 +77,15 @@ public class RoleService {
                 .toList();
     }
 
-    public RoleResponse update(Long id, UpdateRoleRequest request) {
-        Role role = roleRepository.findById(id)
+    public RoleResponse update(String publicId, UpdateRoleRequest request) {
+        Role role = roleRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
         role.setName(request.getName().toUpperCase());
         return toResponse(roleRepository.save(role));
     }
 
-    public RoleResponse addPermission(Long id, RolePermissionRequest request) {
-        Role role = roleRepository.findById(id)
+    public RoleResponse addPermission(String publicId, RolePermissionRequest request) {
+        Role role = roleRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
         Permission permission = permissionRepository.findById(request.getPermissionId())
@@ -95,8 +95,8 @@ public class RoleService {
         return toResponse(roleRepository.save(role));
     }
 
-    public RoleResponse removePermission(Long id, RolePermissionRequest request) {
-        Role role = roleRepository.findById(id)
+    public RoleResponse removePermission(String publicId, RolePermissionRequest request) {
+        Role role = roleRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
         Permission permission = permissionRepository.findById(request.getPermissionId())
@@ -106,17 +106,17 @@ public class RoleService {
         return toResponse(roleRepository.save(role));
     }
 
-    public void delete(Long id) {
-        if (!roleRepository.existsById(id)) {
+    public void delete(Long publicId) {
+        if (!roleRepository.existsById(publicId)) {
             throw new RuntimeException("Role not found");
         }
-        roleRepository.deleteById(id);
+        roleRepository.deleteById(publicId);
     }
 
     private RoleResponse toResponse(Role role) {
         Set<PermissionResponse> permissions = role.getPermissions().stream()
                 .map(p -> PermissionResponse.builder()
-                        .publicId(role.getPublicId())
+                        .publicId(p.getPublicId())
                         .name(p.getName())
                         .description(p.getDescription())
                         .build())
