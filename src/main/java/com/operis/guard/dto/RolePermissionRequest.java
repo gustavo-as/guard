@@ -8,4 +8,5 @@ import lombok.*;
 public class RolePermissionRequest {
 
     private Long permissionId;
+    private String permissionPublicId;
 }

@@ -42,27 +42,27 @@ public class RoleController {
         return ResponseEntity.ok(roleService.findByCompany(companyId));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{publicId}")
     public ResponseEntity<RoleResponse> update(@PathVariable String publicId,
                                                @RequestBody UpdateRoleRequest request) {
         return ResponseEntity.ok(roleService.update(publicId, request));
     }
 
-    @PostMapping("/{id}/permissions")
+    @PostMapping("/{publicId}/permissions")
     public ResponseEntity<RoleResponse> addPermission(@PathVariable String publicId,
                                                       @RequestBody RolePermissionRequest request) {
         return ResponseEntity.ok(roleService.addPermission(publicId, request));
     }
 
-    @DeleteMapping("/{id}/permissions")
+    @DeleteMapping("/{publicId}/permissions")
     public ResponseEntity<RoleResponse> removePermission(@PathVariable String publicId,
                                                          @RequestBody RolePermissionRequest request) {
         return ResponseEntity.ok(roleService.removePermission(publicId, request));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        roleService.delete(id);
+    @DeleteMapping("/{publicId}")
+    public ResponseEntity<Void> delete(@PathVariable String publicId) {
+        roleService.delete(publicId);
         return ResponseEntity.noContent().build();
     }
 }
