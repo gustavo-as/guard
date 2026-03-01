@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -134,6 +135,28 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User is not linked to this company"));
 
         userCompanyRepository.delete(userCompany);
+    }
+
+    public UserCompanyResponse updateHourlyRate(String userPublicId, String companyPublicId, BigDecimal hourlyRate) {
+        User user = userRepository.findByPublicId(userPublicId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Company company = companyRepository.findByPublicId(companyPublicId)
+                .orElseThrow(() -> new RuntimeException("Company not found"));
+
+        UserCompany userCompany = userCompanyRepository
+                .findByUserIdAndCompanyId(user.getId(), company.getId())
+                .orElseThrow(() -> new RuntimeException("User is not linked to this company"));
+
+        userCompany.setHourlyRate(hourlyRate);
+        userCompanyRepository.save(userCompany);
+
+        return UserCompanyResponse.builder()
+                .companyPublicId(company.getPublicId())
+                .companyName(company.getName())
+                .role(userCompany.getRole().getName())
+                .hourlyRate(userCompany.getHourlyRate())
+                .build();
     }
 
     private UserResponse toResponse(User user) {

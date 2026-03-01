@@ -5,12 +5,9 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Getter
-@Builder
-public class UserCompanyResponse {
-
+@Setter
+@NoArgsConstructor
+public class UpdateHourlyRateRequest {
     private String companyPublicId;
-    private String companyName;
-    private String role;
     private BigDecimal hourlyRate;
-
 }

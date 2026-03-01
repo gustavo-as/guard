@@ -60,4 +60,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{publicId}/hourly-rate")
+    public ResponseEntity<UserCompanyResponse> updateHourlyRate(
+            @PathVariable String publicId,
+            @RequestBody UpdateHourlyRateRequest request) {
+        return ResponseEntity.ok(userService.updateHourlyRate(
+                publicId,
+                request.getCompanyPublicId(),
+                request.getHourlyRate()
+        ));
+    }
+
 }
