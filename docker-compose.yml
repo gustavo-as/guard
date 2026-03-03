@@ -1,0 +1,58 @@
+services:
+
+  guard-db:
+    image: postgres:16-alpine
+    container_name: guard-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - guard-db-data:/var/lib/postgresql/data
+    networks:
+      - guard-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  guard:
+    build: .
+    container_name: guard
+    restart: unless-stopped
+    depends_on:
+      guard-db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://guard-db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${DDL_AUTO:-validate}
+      JWT_PRIVATE_KEY_PATH: file:/app/certs/private.pem
+      JWT_PUBLIC_KEY_PATH: file:/app/certs/public.pem
+      JWT_ACCESS_TOKEN_EXPIRATION: ${JWT_ACCESS_TOKEN_EXPIRATION:-900}
+      JWT_REFRESH_TOKEN_EXPIRATION: ${JWT_REFRESH_TOKEN_EXPIRATION:-604800}
+    volumes:
+      - ~/certs/guard:/app/certs:ro
+    networks:
+      - guard-network
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.guard.rule=Host(`api.gustavohub.com`)"
+      - "traefik.http.routers.guard.entrypoints=websecure"
+      - "traefik.http.routers.guard.tls.certresolver=letsencrypt"
+      - "traefik.http.services.guard.loadbalancer.server.port=8080"
+
+volumes:
+  guard-db-data:
+
+networks:
+  guard-network:
+    driver: bridge
+  traefik-network:
+    external: true
