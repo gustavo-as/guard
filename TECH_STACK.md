@@ -8,8 +8,8 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| Java | 25 | Linguagem de programação orientada a objetos, fortemente tipada e amplamente utilizada no desenvolvimento de aplicações empresariais. Base de todo o projeto. |
-| Spring Boot | 4.0.3 | Framework que simplifica a criação de aplicações Spring com configuração mínima. Fornece servidor embutido, auto-configuração e um ecossistema robusto de módulos. |
+| Java | 25 | Linguagem base do projeto. |
+| Spring Boot | 4.0.3 | Framework principal com auto-configuração, servidor embutido e ecossistema robusto. |
 
 ---
 
@@ -17,10 +17,10 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| PostgreSQL | 16 | Sistema de gestão de base de dados relacional open-source, reconhecido pela sua robustez, conformidade com padrões SQL e suporte a tipos de dados avançados. |
-| Spring Data JPA | - | Módulo do Spring que abstrai o acesso a dados relacionais, eliminando a necessidade de escrever queries SQL manualmente para operações comuns. |
-| Hibernate ORM | 7.2.4 | Implementação da especificação JPA responsável pelo mapeamento entre objetos Java e tabelas relacionais, bem como pela geração e execução de SQL. |
-| HikariCP | 7.0.2 | Pool de conexões de alto desempenho para JDBC. Gerencia e reutiliza conexões com a base de dados, reduzindo o custo de abertura de novas conexões a cada requisição. |
+| PostgreSQL | 16 | Base de dados relacional principal. |
+| Spring Data JPA | — | Abstração de acesso a dados relacionais. |
+| Hibernate ORM | 7.2.4 | Mapeamento objeto-relacional e geração de SQL. |
+| HikariCP | 7.0.2 | Pool de conexões de alto desempenho para JDBC. |
 
 ---
 
@@ -28,8 +28,10 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| Spring Security Crypto | - | Módulo do Spring focado em criptografia. Utilizado para encriptar palavras-passe com o algoritmo BCrypt antes de as armazenar na base de dados. |
-| JWT (JSON Web Token) | - | Padrão aberto (RFC 7519) para transmissão segura de informações entre partes como um objeto JSON assinado. Utilizado para autenticação stateless com suporte ao contexto multi-tenant. |
+| Spring Security | — | Framework de autenticação e autorização. Gestão do `SecurityFilterChain`, CSRF, sessão stateless e filtros. |
+| Spring Security Crypto | — | Encriptação de passwords com BCrypt. |
+| JWT (RS256) | — | Tokens assinados com par de chaves RSA. O access token carrega o contexto multi-tenant completo (empresa, role, permissões). |
+| Nimbus JOSE + JWT | — | Biblioteca para geração, assinatura e validação de JWTs com chaves RSA PEM. |
 
 ---
 
@@ -37,8 +39,20 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| Docker | 29.2.0 | Plataforma de containerização que permite empacotar e executar aplicações em ambientes isolados. Utilizado para correr o PostgreSQL localmente sem necessidade de instalação direta. |
-| Docker Compose | - | Ferramenta para definir e gerir múltiplos containers Docker através de um único ficheiro de configuração YAML. Simplifica a orquestração do ambiente de desenvolvimento local. |
+| Docker | 29.2.0 | Containerização da aplicação e base de dados. |
+| Docker Compose | — | Orquestração local e em produção. Perfis separados via `override` para dev e `docker-compose.yml` base para prod. |
+| Traefik | — | Reverse proxy em produção. Gestão automática de TLS via Let's Encrypt e roteamento por hostname. |
+| VPS (Linux) | — | Servidor de produção onde os containers correm via Docker Compose. |
+
+---
+
+## Configuração & Perfis
+
+| Tecnologia | Descrição |
+|------------|-----------|
+| Spring Profiles | Separação de configuração entre `dev` e `prod` via `application-dev.yml` e `application-prod.yml`. |
+| Environment Variables | Credenciais e configurações sensíveis injetadas via `.env` (nunca commitado). |
+| ConfigurationProperties | `CorsProperties` para tipagem segura das origens permitidas por ambiente. |
 
 ---
 
@@ -46,11 +60,11 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| IntelliJ IDEA | - | IDE da JetBrains amplamente utilizada no desenvolvimento Java/Kotlin. Oferece suporte avançado a refactoring, debugging, integração com Spring e ferramentas de produtividade. |
-| Maven | - | Ferramenta de gestão de dependências e automação de build para projetos Java. Define a estrutura do projeto e as suas dependências através do ficheiro `pom.xml`. |
-| Lombok | - | Biblioteca que reduz o código repetitivo (boilerplate) em Java através de anotações. Gera automaticamente getters, setters, construtores, builders e outros métodos em tempo de compilação. |
-| Git | - | Sistema de controlo de versões distribuído. Permite rastrear alterações no código, colaborar em equipa e manter o histórico completo do projeto. |
-| Gitflow | - | Estratégia de branching para Git que define um modelo claro de branches para features, releases e hotfixes, garantindo um fluxo de desenvolvimento organizado e seguro. |
+| IntelliJ IDEA | — | IDE principal para desenvolvimento Java. |
+| Maven | — | Gestão de dependências e automação de build via `pom.xml`. |
+| Lombok | — | Redução de boilerplate via anotações (`@Builder`, `@Data`, `@RequiredArgsConstructor`, etc.). |
+| Git | — | Controlo de versões distribuído. |
+| Gitflow | — | Estratégia de branching com branches `main`, `develop`, `feature/*`, `fix/*`, `hotfix/*`, `release/*`. |
 
 ---
 
@@ -58,6 +72,4 @@ Visão geral de todas as tecnologias utilizadas no projeto.
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
-| Spring Boot Actuator | - | Módulo do Spring Boot que expõe endpoints de monitoramento e gestão da aplicação. Permite verificar o estado de saúde da aplicação, métricas e informações do ambiente em tempo real. |
-
----
+| Spring Boot Actuator | — | Endpoints de saúde e métricas expostos em `/actuator/health` e `/actuator/info`. |
