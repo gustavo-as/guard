@@ -1,0 +1,19 @@
+services:
+  guard-db:
+    ports:
+      - "5432:5432"   # expõe o banco para a IDE
+
+  guard:
+    ports:
+      - "8080:8080"   # acesso direto sem Traefik
+    networks:
+      - guard-network
+    labels:
+      - "traefik.enable=false"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+
+networks:
+  traefik-network:
+    external: false   # ← sobrescreve, cria local sem precisar do Traefik
+    driver: bridge

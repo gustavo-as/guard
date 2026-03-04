@@ -3,19 +3,7 @@ spring:
     name: guard
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/guarddb}
-    username: ${SPRING_DATASOURCE_USERNAME:guard_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:guard_pass}
     driver-class-name: org.postgresql.Driver
-
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: ${DDL_AUTO:update}
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
 jwt:
   private-key: ${JWT_PRIVATE_KEY_PATH:classpath:certs/private.pem}
@@ -37,3 +25,12 @@ management:
   endpoint:
     health:
       show-details: always
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+  initializer:
+    enabled: ${INITIALIZER_ENABLED:false}
+  admin:
+    email: ${ADMIN_EMAIL:admin@guard.prod}
+    password: ${ADMIN_PASSWORD:admin123!}
