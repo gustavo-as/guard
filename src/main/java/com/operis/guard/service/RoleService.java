@@ -4,7 +4,7 @@ import com.operis.guard.dto.*;
 import com.operis.guard.entity.Company;
 import com.operis.guard.entity.Permission;
 import com.operis.guard.entity.Role;
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import com.operis.guard.repository.CompanyRepository;
 import com.operis.guard.repository.PermissionRepository;
 import com.operis.guard.repository.RoleRepository;

@@ -1,7 +1,7 @@
 package com.operis.guard.controller;
 
 import com.operis.guard.dto.*;
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import com.operis.guard.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

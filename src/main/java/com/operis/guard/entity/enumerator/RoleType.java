@@ -1,4 +1,4 @@
-package com.operis.guard.entity.enummerator;
+package com.operis.guard.entity.enumerator;
 
 public enum RoleType {
 

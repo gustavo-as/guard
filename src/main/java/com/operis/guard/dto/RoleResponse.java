@@ -1,7 +1,7 @@
 package com.operis.guard.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 

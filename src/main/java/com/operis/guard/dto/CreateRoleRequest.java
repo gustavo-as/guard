@@ -1,6 +1,6 @@
 package com.operis.guard.dto;
 
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import lombok.*;
 
 @Getter
