@@ -1,7 +1,7 @@
 package com.operis.guard.repository;
 
 import com.operis.guard.entity.Role;
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
