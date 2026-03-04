@@ -1,0 +1,19 @@
+# =====================================================================
+# Perfil PROD — configurações seguras para produção
+# Ativo quando SPRING_PROFILES_ACTIVE=prod
+# ATENÇÃO: datasource e credenciais OBRIGATORIAMENTE via env vars
+# =====================================================================
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate   # Nunca auto-alterar schema em prod
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+server:
+  error:
+    include-message: never          # Não expor mensagens de erro internas
+    include-binding-errors: never
