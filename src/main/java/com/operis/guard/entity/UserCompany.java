@@ -3,6 +3,7 @@ package com.operis.guard.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -37,6 +38,10 @@ public class UserCompany {
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
+
+    // Hora de trabalho do usuario na empresa vinculada
+    @Column(precision = 10, scale = 2)
+    private BigDecimal hourlyRate;
 
     // Indica se este vínculo está ativo
     @Column(nullable = false)
