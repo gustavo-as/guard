@@ -7,9 +7,15 @@
 - [x] PostgreSQL 16 via Docker Compose
 - [x] Gitflow branching strategy
 - [x] Semantic commits
-- [x] application.yaml configuration
 - [x] Spring Security (stateless)
 - [x] RSA key pair generation (local only, never committed)
+- [x] Environment profiles (dev, prod) via Spring Profiles
+- [x] application.yml split into base, application-dev.yml and application-prod.yml
+- [x] CORS configuration per environment via `app.cors.allowed-origins`
+- [x] Docker image for the application (Dockerfile)
+- [x] Docker Compose with dev override (docker-compose.override.yml)
+- [x] Traefik reverse proxy with automatic TLS (Let's Encrypt)
+- [x] CI/CD pipeline (GitHub → VPS)
 
 ### Domain Model
 - [x] User entity
@@ -24,11 +30,20 @@
 - [x] JWT authentication with RS256 (Nimbus JOSE)
 - [x] Access Token (15 min) + Refresh Token rotation (7 days)
 - [x] Public UUID on all entities (internal IDs never exposed)
+- [x] JwtAuthenticationFilter (skips public routes)
+- [x] SecurityFilterChain with CSRF disabled and stateless session
+
+### Data Seed
+- [x] DataInitializer (`@Profile("!prod")`) — runs only in non-prod environments
+- [x] 17 base permissions seeded automatically
+- [x] ADMIN role (BASE) with all permissions
+- [x] Default company (Operis) seeded
+- [x] Admin user linked to company with ADMIN role
 
 ### API Endpoints
-- [x] POST /auth/login
-- [x] POST /auth/refresh
-- [x] POST /auth/logout
+- [x] POST /api/v1/auth/login
+- [x] POST /api/v1/auth/refresh
+- [x] POST /api/v1/auth/logout
 - [x] POST /api/v1/users
 - [x] GET /api/v1/users
 - [x] GET /api/v1/users/{id}
@@ -58,20 +73,21 @@
 ### Documentation
 - [x] README.md
 - [x] TECH_STACK.md
+- [x] TODO.md
 
 ---
 
 ## 🔲 Backlog
 
 ### API & Validation
-- [ ] Global exception handler (ExceptionHandler)
+- [ ] Global exception handler (`@RestControllerAdvice`)
 - [ ] Input validation (Bean Validation / Jakarta)
-- [ ] GET /auth/me endpoint
+- [ ] GET /api/v1/auth/me endpoint
 
 ### Domain
 - [ ] UserProfile entity (personal data)
 - [ ] UserCompany CRUD endpoints
-- [ ] Role-based access control on endpoints (@PreAuthorize)
+- [ ] Role-based access control on endpoints (`@PreAuthorize`)
 
 ### Quality
 - [ ] Unit tests (UserService, AuthService, JwtService)
@@ -79,10 +95,6 @@
 - [ ] API documentation (Swagger / OpenAPI)
 
 ### Infrastructure
-- [ ] Docker image for the application
-- [ ] Environment profiles (dev, prod)
-- [ ] Centralized logging
+- [ ] Centralized logging (ELK or similar)
 
 ---
-
-> This file is updated at the end of each development cycle.
