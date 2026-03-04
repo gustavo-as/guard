@@ -1,6 +1,6 @@
 package com.operis.guard.entity;
 
-import com.operis.guard.entity.enummerator.RoleType;
+import com.operis.guard.entity.enumerator.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
