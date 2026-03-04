@@ -36,6 +36,7 @@ services:
       JWT_PUBLIC_KEY_PATH: file:/app/certs/public.pem
       JWT_ACCESS_TOKEN_EXPIRATION: ${JWT_ACCESS_TOKEN_EXPIRATION:-900}
       JWT_REFRESH_TOKEN_EXPIRATION: ${JWT_REFRESH_TOKEN_EXPIRATION:-604800}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
     volumes:
       - ~/certs/guard:/app/certs:ro
     networks:
