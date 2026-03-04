@@ -1,23 +1,29 @@
-# =====================================================================
-# Perfil DEV — valores padrão para execução local
-# Ativo quando SPRING_PROFILES_ACTIVE=dev (ou omitido)
-# =====================================================================
-
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/guarddb}
-    username: ${SPRING_DATASOURCE_USERNAME:guard_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:guard_pass}
+    url: jdbc:postgresql://localhost:5432/guarddb
+    username: guard_user
+    password: guard_pass
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
     properties:
       hibernate:
         format_sql: true
 
+logging:
+  level:
+    root: INFO
+    com.operis.guard: DEBUG
+
 app:
-  seed:
-    admin-email: ${SEED_ADMIN_EMAIL:admin@guard.io}
-    admin-password: ${SEED_ADMIN_PASSWORD:Admin@Guard123}
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:4200
+  initializer:
+    enabled: true
+  admin:
+    email: admin@guard.dev
+    password: admin123!

@@ -1,5 +1,6 @@
 package com.operis.guard.repository;
 
+import aj.org.objectweb.asm.commons.Remapper;
 import com.operis.guard.entity.Role;
 import com.operis.guard.entity.enumerator.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByPublicId(String publicId);
 
+    Optional<Role> findByNameAndType(String adminRoleName, RoleType roleType);
 }

@@ -30,6 +30,8 @@ Thumbs.db
 
 # Environment / Secrets
 .env
+.env.prod
+.env.local
 *.env
 application-local.yaml
 application-secret.yaml
