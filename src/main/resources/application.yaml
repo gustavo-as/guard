@@ -23,6 +23,11 @@ jwt:
   access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:900}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800}
 
+app:
+  seed:
+    admin-email: ${SEED_ADMIN_EMAIL:admin@guard.io}
+    admin-password: ${SEED_ADMIN_PASSWORD:Admin@Guard123}
+
 server:
   port: 8080
   error:
